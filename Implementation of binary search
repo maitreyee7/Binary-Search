@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int bs(vector<int>& nums,int lo,int hi, int target){
+        if(lo>hi){
+            return -1;
+        }
+        int mid= (lo+hi)/2;
+        if(nums[mid]==target){
+            return mid;
+        }
+        else if(nums[mid]>target){
+            return bs(nums,lo,mid-1,target);
+        }
+        else{
+            return bs(nums,mid+1,hi,target);
+        }
+        return -1;
+    }
+
+    int search(vector<int>& nums, int target) {
+    return bs(nums, 0, nums.size()-1, target);
+    }
+};
