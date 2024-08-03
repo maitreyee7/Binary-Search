@@ -1,0 +1,39 @@
+int bs(vector<int>& nums,int lo, int hi){
+        if(lo==hi){
+            return nums[lo];
+        }
+        if(lo>hi){
+            return -1;
+        }
+        int mid= (lo+hi)/2;
+        int l,r;
+        if(nums[mid]!=nums[mid-1] && nums[mid]!=nums[mid+1] ){
+            return nums[mid];
+        }
+        else if(nums[mid]==nums[mid-1]){
+            l=mid-lo+1;
+            r=hi-mid;
+            if(l%2!=0){
+                return bs(nums,lo,mid-2);
+            }
+            else{
+                return bs(nums,mid+1,hi);
+            }
+        }
+        else{
+             l=mid-lo;
+            r=hi-mid+1;
+            if(l%2!=0){
+                return bs(nums,lo,mid-1);
+            }
+            else{
+                return bs(nums,mid+2,hi);
+            }
+        }
+        
+       return -1; 
+    }
+
+    int singleNonDuplicate(vector<int>& nums) {
+        return bs(nums, 0,nums.size()-1);
+    }
