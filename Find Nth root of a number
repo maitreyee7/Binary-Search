@@ -1,0 +1,38 @@
+class Solution{
+	public:
+	int func(int mid, int n,int m){
+	   long long ans=1;
+	   for(int i=0;i<n;i++){
+	       ans= ans*mid;
+	    if(ans>m){
+	       return 2;
+	   }
+	   }
+	   if (ans == m) return 1; // Exact match
+        return 0; // `ans` is less than `m`
+	   
+	  
+	}
+	
+	int NthRoot(int n, int m)
+	{
+	    int ans=-1;
+	    int l=1, h=m;
+	    while(l<=h){
+	        int mid= (l+h)/2;
+	        int midm=func(mid,n,m);
+	        if(midm==1){
+	             ans=mid;
+	            return mid;
+	        }
+	        else if(midm==2){
+	            h=mid-1;
+	        }
+	        else{
+	 
+	            l=mid+1;
+	        }
+	    }
+	    return ans;
+	}  
+};
