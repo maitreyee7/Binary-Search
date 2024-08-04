@@ -1,0 +1,47 @@
+class Solution {
+public:
+
+    int func(vector<int> bloomDay,int mid, int m, int k){
+        int cnt=0;
+        int blooms=0;
+        int n=bloomDay.size();
+        
+        for(int i=0;i<n;i++){
+            if(bloomDay[i]<=mid){
+                cnt++;
+            }
+            else{
+                blooms+= (cnt/k);
+                cnt=0;
+            }
+        }
+         blooms+= (cnt/k);
+         return blooms>=m;
+        
+    }
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        if(bloomDay.size()<(long long)m*k){
+            return -1;
+        }
+       
+        
+        int ans=INT_MAX;
+        int h= *max_element(bloomDay.begin(),bloomDay.end());
+        int l=1;
+        while(l<=h){
+            int mid= (l+h)/2;
+            int cnt;
+            cnt= func(bloomDay,mid,m,k);
+            if(cnt){
+                ans=min(ans,mid);
+                h=mid-1;
+            }
+            else{
+                l=mid+1;
+            }
+
+        }
+
+        return ans;
+    }
+};
