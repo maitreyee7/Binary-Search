@@ -1,0 +1,31 @@
+int ans(vector<int> boards,int mid){
+    int s=1,p=0;
+    for(int i=0;i<boards.size();i++){
+        if(p+boards[i]<=mid){
+            p+=boards[i];
+        }
+        else{
+            s++;
+            p=boards[i];
+        }
+    }
+    return s;
+}
+
+
+int findLargestMinDistance(vector<int> &boards, int k)
+{   int l= *max_element(boards.begin(),boards.end());
+    int h=accumulate(boards.begin(),boards.end(),0);
+    while(l<=h){
+        int mid= l+(h-l)/2;
+    int a= ans(boards,mid);
+    if(a>k){
+        l=mid+1;
+    }
+    else{
+        h=mid-1;
+    }
+    }
+    return l;
+    
+}
