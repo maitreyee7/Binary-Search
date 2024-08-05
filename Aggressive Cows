@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool canwesolve(int mid, int k, vector<int> &stalls, int n){
+        int cows=1, last=stalls[0];
+        for(int i=1;i<n;i++){
+            if(stalls[i]- last >=mid){
+                cows++;
+                last=stalls[i];
+                 if(cows>=k){
+            return true;
+        }
+            }
+            
+        }
+       
+        return false;
+    }
+
+    int solve(int n, int k, vector<int> &stalls) {
+        sort(stalls.begin(),stalls.end());
+        int l=1, h= *max_element(stalls.begin(),stalls.end()) - *min_element(stalls.begin(),stalls.end());
+        int ans=0;
+        
+        while(l<=h){
+            int mid=(l+h)/2;
+            if(canwesolve(mid,k,stalls,n)){
+                ans=max(ans,mid);
+                l=mid+1;
+            }
+            else{
+                h=mid-1;
+            }
+        }
+        return ans;
+    }
+};
