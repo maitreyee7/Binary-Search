@@ -1,0 +1,52 @@
+class Solution{   
+public:
+    int upperBound(vector<int> arr,int m, int C){
+        int l=0, h=C-1;
+        int ans=C;
+        while(l<=h){
+            int mid=(l+h)/2;
+            if(arr[mid]> m){
+                ans=mid;
+                h=mid-1;
+            }
+            else{
+                l=mid+1;
+            }
+        }
+        return ans;
+        
+    }
+
+
+    int countsm(vector<vector<int>> &matrix, int mid,  int R,int C){
+        int cnt=0;
+        for(int i=0;i<R;i++){
+            cnt+=upperBound(matrix[i],mid,C);
+        }
+        return cnt;
+    }
+
+    int median(vector<vector<int>> &matrix, int R, int C){
+        int req= (R*C)/2;
+        int l=INT_MIN, h=INT_MAX;
+        for(int i=0;i<R;i++){
+            if(matrix[i][0]>h){
+                h=matrix[i][0];
+            }
+            if(matrix[i][C-1]<l){
+                l=matrix[i][C-1];
+            }
+        }
+        while(l<=h){
+            int mid=(l+h)/2;
+            int sm= countsm(matrix, mid, R,C);
+            if(sm<=req){
+                l=mid+1;
+            }
+            else{
+                h=mid-1;
+            }
+        }
+        return l;
+    }
+};
